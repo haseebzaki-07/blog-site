@@ -1,16 +1,35 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import { BACKEND_URL } from "../../../config"; // Adjust the import path according to your project structure
 import { Appbar } from "../Appbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const Editor = () => {
+export const UpdateEditor = () => {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const quillRef = useRef<ReactQuill>(null);
+
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/api/v1/blog/${id}`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        });
+        setTitle(response.data.post.title);
+        setContent(response.data.post.content);
+      } catch (error) {
+        alert("Error while fetching blog!");
+      }
+    };
+
+    fetchBlog();
+  }, []);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -42,11 +61,12 @@ export const Editor = () => {
     };
   }, []);
 
-  const handlePublish = async () => {
+  const handleUpdate = async () => {
     try {
-      await axios.post(
+      await axios.put(
         `${BACKEND_URL}/api/v1/blog`,
         {
+          id,
           title,
           content,
         },
@@ -57,11 +77,11 @@ export const Editor = () => {
         }
       );
 
-      alert("Blog published successfully!");
-      navigate("/blogs");
+      alert("Blog updated successfully!");
+      navigate(`/blog/${id}`);
     } catch (error) {
       console.error(error);
-      alert("Error publishing blog");
+      alert("Error updating blog");
     }
   };
 
@@ -92,7 +112,7 @@ export const Editor = () => {
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="title"
           >
-            Enter Your Title
+            Change Your Title
           </label>
           <input
             type="text"
@@ -107,7 +127,7 @@ export const Editor = () => {
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="content"
           >
-            Blog Content
+            Change your Content
           </label>
           <ReactQuill
             ref={quillRef}
@@ -119,10 +139,10 @@ export const Editor = () => {
         </div>
         <div className="mb-4">
           <button
-            onClick={handlePublish}
+            onClick={handleUpdate}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Publish
+            Update
           </button>
         </div>
       </div>
@@ -130,4 +150,4 @@ export const Editor = () => {
   );
 };
 
-export default Editor;
+export default UpdateEditor;

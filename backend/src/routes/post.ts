@@ -4,6 +4,7 @@ import { withAccelerate } from "@prisma/extension-accelerate";
 import {sign , decode, verify} from 'hono/jwt'
 import { createBlogInput, updateBlogInput } from "@hzaki78/medium-common";
 
+
 export const postRouter = new Hono<{
     Bindings :{
         DATABASE_URL : string;
@@ -11,6 +12,7 @@ export const postRouter = new Hono<{
     },
     Variables : {
       userId : string;
+
    
     }
 }>()
@@ -163,4 +165,22 @@ postRouter.post("/", async (c) => {
 
 
   });
+
+  postRouter.delete("/:id" , async (c) =>{
+    try {
+    const id = c.req.param("id");
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    await prisma.post.delete({
+      where : {
+        id : id ,
+      }
+    })
+     return c.text("Your post is successfully deleted!")
+    } catch (error) {
+      return c.text("error while deleting!")
+    }
+  })
 
