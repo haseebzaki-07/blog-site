@@ -33,6 +33,8 @@ postRouter.get("/bulk", async (c) => {
           name : true
         }
       }
+      ,authorId : true
+      
     }
   })
   return c.json({
@@ -62,7 +64,8 @@ postRouter.get("/:id",async (c) => {
           select : {
             name : true
           }
-        }
+        },
+        authorId : true
       }
     })
 

@@ -1,0 +1,6 @@
+signout
+daashboard / my blogs
+rich text editor 
+udpate blog 
+delete blog
+drop down menu

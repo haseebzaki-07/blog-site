@@ -22,6 +22,7 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
         },
       }
     );
+    alert("Blog deleted successfully!")
     navigate("/blogs");
   };
   return (
