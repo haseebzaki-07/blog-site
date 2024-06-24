@@ -5,8 +5,8 @@ import Quote from "../components/Quote";
 const Signup = () => {
   return (
     <div>
-      <Appbar signup={true}/>
-      <div className="grid grid-cols-1 lg:grid-cols-2">
+      <Appbar  signup={true}/>
+      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen  ">
         <div>
             <Auth  type = "signup"/>
         </div>

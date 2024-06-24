@@ -7,8 +7,10 @@ import { Publish } from './pages/Publish'
 import { Update } from './pages/Update'
 import { Home } from './pages/Home'
 import { Dashboard } from './pages/Dashboard'
+import { useInitializerUser } from './hooks/Auth'
 
 function App() {
+  useInitializerUser()
 
   return (
     <>

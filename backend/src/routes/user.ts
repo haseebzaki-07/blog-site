@@ -34,7 +34,7 @@ userRouter.post("/signup", async (c) => {
       },
     });
 
-    const token = await sign({ id: user.id , email : user.email }, c.env.JWT_SECRET);
+    const token = await sign({ id: user.id , email : user.email}, c.env.JWT_SECRET);
     return c.text(token);
   } catch (error) {
     
@@ -74,3 +74,21 @@ userRouter.post("/signin", async (c) => {
 
   return c.text(jwt);
 });
+
+
+userRouter.get("/:id" ,async (c)=> {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+ const id  =  c.req.param("id");
+  const user = await prisma.user.findUnique({
+      where : {
+        id : id
+      }
+  })
+  
+  return c.json(user)
+
+
+})

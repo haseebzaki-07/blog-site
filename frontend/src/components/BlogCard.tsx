@@ -2,6 +2,10 @@ import DOMPurify from "dompurify";
 import { Link } from "react-router-dom";
 import { DropMenu } from "./DropMenu";
 import {Menu, MenuButton } from "@headlessui/react";
+import { useEffect, useState } from "react";
+import { BACKEND_URL } from "../../config";
+import axios from "axios";
+import { getUser } from "../utils/AuthStore";
 
 interface BlogCardProps {
   id: string;
@@ -22,8 +26,8 @@ export const BlogCard = ({
 }: BlogCardProps) => {
   const sanitizedContent = DOMPurify.sanitize(content.slice(0, 100) + "...");
   return (
-    <Link to={`/blog/${id}`}>
-      <div className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen-md cursor-pointer">
+    <Link to={`/blog/${id}`} className="flex w-[60vw]  mx-[20vw]">
+      <div className="p-4 border-b border-slate-200  pb-4 w-full cursor-pointer shrink-0">
         <div className="flex">
           <Avatar name={authorName} />
           <div className="font-extralight pl-2 text-sm flex justify-center flex-col">
@@ -61,6 +65,25 @@ export function Avatar({
   size?: "small" | "big";
 }) {
 
+
+  const [username, setUsername] = useState("");
+  useEffect(()=>{
+
+
+    const user = getUser()
+    if(!user) {
+      setUsername("Anonymous")
+      return;
+    }; 
+    const id  =  user.id
+    const getAvatarUser = async () =>{
+      await axios.get(`${BACKEND_URL}/api/v1/user/${id}`).then(response => setUsername(response.data.name ))
+    }
+
+    getAvatarUser()
+  })
+
+
   return (
     <Menu>
       <MenuButton
@@ -74,7 +97,7 @@ export function Avatar({
             size === "small" ? "text-xs" : "text-md"
           } font-extralight text-gray-600 dark:text-gray-300`}
         >
-          {name[0]}
+        {size === "small" ? name[0] : username[0]}
         </span>
       </MenuButton>
       <DropMenu />

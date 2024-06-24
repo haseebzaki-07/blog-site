@@ -4,3 +4,11 @@ rich text editor
 udpate blog 
 delete blog
 drop down menu
+avatar
+
+
+//todo
+
+user verification for other routes
+without user verification routes : home , explore
+update appbar
