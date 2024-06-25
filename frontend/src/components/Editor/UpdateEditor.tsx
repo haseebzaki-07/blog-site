@@ -6,6 +6,7 @@ import { BACKEND_URL } from "../../../config"; // Adjust the import path accordi
 import { Appbar } from "../Appbar";
 import { useNavigate, useParams } from "react-router-dom";
 
+
 export const UpdateEditor = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -62,14 +63,15 @@ export const UpdateEditor = () => {
   }, []);
 
   const handleUpdate = async () => {
+    if (!title.trim() && !content.trim()) {
+      alert("Title and content cannot be empty.");
+      return;
+    }
+
     try {
-      await axios.put(
+      await axios.post(
         `${BACKEND_URL}/api/v1/blog`,
-        {
-          id,
-          title,
-          content,
-        },
+        { id, title, content },
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -78,7 +80,7 @@ export const UpdateEditor = () => {
       );
 
       alert("Blog updated successfully!");
-      navigate(`/blog/${id}`);
+      navigate("/blogs");
     } catch (error) {
       console.error(error);
       alert("Error updating blog");

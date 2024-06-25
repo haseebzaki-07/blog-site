@@ -6,6 +6,7 @@ import { BACKEND_URL } from "../../../config"; // Adjust the import path accordi
 import { Appbar } from "../Appbar";
 import { useNavigate } from "react-router-dom";
 
+
 export const Editor = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -43,6 +44,11 @@ export const Editor = () => {
   }, []);
 
   const handlePublish = async () => {
+    if (!title.trim() && !content.trim()) {
+      alert("Title and content cannot be empty.");
+      return;
+    }
+
     try {
       await axios.post(
         `${BACKEND_URL}/api/v1/blog`,
