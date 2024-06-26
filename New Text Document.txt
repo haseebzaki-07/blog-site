@@ -9,10 +9,11 @@ avatar
 done : user verification for other routes
 done : without user verification routes : home , explore
 done : update appbar
-image addition 
+done : image addition 
 implement caching 
-pagination
+done : pagination
 reloading update authentication alert
-make image optional in schema
-handle content uploading
-check post route and editor both
+
+
+
+bring up latest version of common module

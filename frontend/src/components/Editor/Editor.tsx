@@ -92,7 +92,7 @@ export const Editor = () => {
     <div>
       <Appbar />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 mt-20">
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"

@@ -32,7 +32,7 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
       <div className="flex justify-center mt-20 w-screen h-screen">
         <div className="w-full flex justify-center  pt-12">
           <div className="max-w-4xl w-full bg-white p-10 rounded-lg shadow-md">
-            <div className="text-5xl font-extrabold overflow-hidden break-words">
+            <div className="text-5xl font-extrabold overflow-hidden break-words pb-10">
               {blog.title}
             </div>
             <div className="text-slate-500 pt-2">Post on 2nd December 2023</div>

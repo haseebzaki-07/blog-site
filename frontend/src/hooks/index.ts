@@ -1,65 +1,75 @@
-import  { useState, useEffect } from 'react';
-import axios from 'axios';
-import { BACKEND_URL } from '../../config';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { BACKEND_URL } from "../../config";
 
 export interface Blog {
-    "content" : string ,
-    "title" : string ,
-    "id" : string ,
-    "author" :{
-        "name" : string ,
-    }
-    "authorId" : string ,
+  content: string;
+  title: string;
+  id: string;
+  author: {
+    name: string;
+  };
+  authorId: string;
 }
-export const useBlog = ({id} : {id : string}) => {
-    const [loading, setloading] = useState(true);
-    const [blog, setblog] = useState<Blog>()
+export const useBlog = ({ id }: { id: string }) => {
+  const [loading, setloading] = useState(true);
+  const [blog, setblog] = useState<Blog>();
 
-    useEffect(()=>{
-        axios.get(`${BACKEND_URL}/api/v1/blog/${ id }`,{
-            headers: {
-                Authorization: localStorage.getItem("token")
-            }
-        })
-        .then(response => {
-            setblog(response.data.post)
-            setloading(false)
-        })
-     
-    }, [])
-    useEffect(()=>{
-        console.log(blog)
-    }, [blog])
-    return {
-        loading, 
-        blog
-    }
-}   
+  useEffect(() => {
+    axios
+      .get(`${BACKEND_URL}/api/v1/blog/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setblog(response.data.post);
+        setloading(false);
+      });
+  }, []);
+  useEffect(() => {
+    console.log(blog);
+  }, [blog]);
+  return {
+    loading,
+    blog,
+  };
+};
 
-export const useBlogs = () => {
-    const [loading, setLoading] = useState(true);
-    const [blogs, setBlogs] = useState<Blog[]>([]);
+export const useBlogs = (page = 1, limit = 10) => {
+  const [loading, setLoading] = useState(true);
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [total, setTotal] = useState(0);
 
-    useEffect(() => {
-        axios.get(`${BACKEND_URL}/api/v1/blog/bulk`, {
-            headers: {
-                Authorization: localStorage.getItem("token")
-            }
-        })
-            .then(response => {
-                setBlogs(response.data.blogs);
-                setLoading(false);
-            })
-    }, [])
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/api/v1/blog/bulk`, {
+          params: { page, limit },
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        });
+        setBlogs(response.data.blogs);
+        setTotal(response.data.total);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch blogs", error);
+      }
+    };
 
-    return {
-        loading,
-        blogs
-    }
-}
+    fetchBlogs();
+  }, [page , limit]);
+
+  return {
+    loading,
+    blogs,
+    total,
+  };
+};
 
 export const useScrollDirection = () => {
-    const [scrollDirection, setScrollDirection] = useState("up");
+  const [scrollDirection, setScrollDirection] = useState("up");
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
@@ -78,4 +88,4 @@ export const useScrollDirection = () => {
   }, [lastScrollY]);
 
   return scrollDirection;
-}
+};

@@ -23,23 +23,35 @@ postRouter.get("/bulk", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
-  const blogs = await prisma.post.findMany({
-    select : {
-      content: true,
-      title: true,
-      id:true,
-      author : {
-        select : {
-          name : true
-        }
-      }
-      ,authorId : true
-      
-    }
-  })
+  const page = parseInt(c.req.query('page') || '1', 10);
+  const limit = parseInt(c.req.query('limit') || '10', 10);
+  
+  const offset = (page - 1) * limit;
+  const [blogs, total] = await prisma.$transaction([
+    prisma.post.findMany({
+      skip: offset,
+      take: limit,
+      select: {
+        content: true,
+        title: true,
+        id: true,
+        author: {
+          select: {
+            name: true,
+          }
+        },
+        authorId: true,
+      },
+    }),
+    prisma.post.count(),
+  ]);
+
   return c.json({
-     blogs
-  })
+    blogs,
+    total,
+    page,
+    limit,
+  });
 });
 
 

@@ -15,7 +15,9 @@ export const Blog = () => {
     if (loading || !blog) {
         return <div>
             <Appbar />
+            <h1 className="mt-20">
             Loading...
+            </h1>
         </div>
     }
     return <div className="bg-zinc-200">
