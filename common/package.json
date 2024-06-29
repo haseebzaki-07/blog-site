@@ -1,6 +1,6 @@
 {
   "name": "@hzaki78/medium-common",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "",
   "main": "dist/index.js",
   "scripts": {

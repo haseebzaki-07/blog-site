@@ -69,7 +69,7 @@ export const UpdateEditor = () => {
     }
 
     try {
-      await axios.post(
+      await axios.put(
         `${BACKEND_URL}/api/v1/blog`,
         { id, title, content },
         {
@@ -80,7 +80,7 @@ export const UpdateEditor = () => {
       );
 
       alert("Blog updated successfully!");
-      navigate("/blogs");
+      navigate(`/blog/${id}`);
     } catch (error) {
       console.error(error);
       alert("Error updating blog");
@@ -108,7 +108,7 @@ export const UpdateEditor = () => {
     <div>
       <Appbar />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 mt-20" >
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"

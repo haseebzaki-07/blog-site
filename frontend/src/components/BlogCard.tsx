@@ -14,6 +14,7 @@ interface BlogCardProps {
   content: string;
   publishedDate: string;
   authorId : string;
+  myblogs?: boolean;
 }
 
 export const BlogCard = ({
@@ -22,11 +23,12 @@ export const BlogCard = ({
   title,
   content,
   publishedDate,
+  myblogs
 
 }: BlogCardProps) => {
   const sanitizedContent = DOMPurify.sanitize(content.slice(0, 100) + "...");
   return (
-    <Link to={`/blog/${id}`} className="flex w-[60vw]  mx-[20vw]">
+    <Link to={`/blog/${id}`} className={`flex  ${myblogs ?'mx-[10vw] w-[55vw]' : 'mx-[20vw] w-[60vw]'}`} >
       <div className="p-4 border-b border-slate-200  pb-4 w-full cursor-pointer shrink-0">
         <div className="flex">
           <Avatar name={authorName} />
@@ -42,7 +44,7 @@ export const BlogCard = ({
         </div>
         <div className="text-xl font-semibold pt-2">{title}</div>
         <div
-          className="text-md font-thin"
+          className="text-md font-thin "
           dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         ></div>
         <div className="text-slate-500 text-sm font-thin pt-4">

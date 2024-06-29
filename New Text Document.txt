@@ -12,7 +12,12 @@ done : update appbar
 done : image addition 
 implement caching 
 done : pagination
+pagiantion on profile issue
 reloading update authentication alert
+done : likes and comments feature
+done : check update working fine on backend but issue on frontend
+
+done : update delete method for author of the post
 
 
 

@@ -10,10 +10,15 @@ export interface Blog {
     name: string;
   };
   authorId: string;
+  likeCount  : number;
+  publishedDate : string;
+
+  
 }
 export const useBlog = ({ id }: { id: string }) => {
   const [loading, setloading] = useState(true);
   const [blog, setblog] = useState<Blog>();
+ 
 
   useEffect(() => {
     axios
@@ -23,10 +28,15 @@ export const useBlog = ({ id }: { id: string }) => {
         },
       })
       .then((response) => {
-        setblog(response.data.post);
+        const data = response.data.post;
+        const blog: Blog = {
+          ...data,
+          likeCount: data._count?.likes || 0,
+        };
+        setblog(blog);
         setloading(false);
       });
-  }, []);
+  }, [id]);
   useEffect(() => {
     console.log(blog);
   }, [blog]);
@@ -35,6 +45,26 @@ export const useBlog = ({ id }: { id: string }) => {
     blog,
   };
 };
+// export const useComments = (id : string) => {
+//   const [loading, setLoading] = useState(true);
+//   const [comments , setComments] = useState<Comment[]>([]);
+//   useEffect(()=>{
+//     const fetchComments =async ()=>{
+//         await axios.get(`${BACKEND_URL}/api/v1/${id}/comment`).then(response => {
+//           console.log("Fetched Comments:", response.data.comments); // Debugging log
+//           setComments(response.data.comments),
+//           setLoading(false)
+//         })
+//     }
+//     fetchComments()
+//     setLoading(false)
+//   } , [id])
+//   return {
+//     loading,
+//     comments,
+//   }
+// }
+
 
 export const useBlogs = (page = 1, limit = 10) => {
   const [loading, setLoading] = useState(true);

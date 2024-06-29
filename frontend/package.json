@@ -12,7 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^2.1.0",
     "@heroicons/react": "^2.1.4",
-    "@hzaki78/medium-common": "^1.0.3",
+    "@hzaki78/medium-common": "^1.0.6",
     "@tailwindcss/typography": "^0.5.13",
     "axios": "^1.7.2",
     "dompurify": "^3.1.5",

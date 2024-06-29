@@ -3,7 +3,17 @@ import { Appbar } from "../components/Appbar";
 import { BlogCard } from "../components/BlogCard";
 import { useBlogs } from "../hooks";
 import { IoIosArrowForward } from "react-icons/io";
-import { IoIosArrowBack} from "react-icons/io";
+import { IoIosArrowBack } from "react-icons/io";
+
+ const dateTimeString = "2024-06-27T16:38:43.572Z";
+
+const date = new Date(dateTimeString);
+
+const year = date.getUTCFullYear();
+const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+const day = String(date.getUTCDate()).padStart(2, "0");
+
+export const formattedDate = `${year}-${month}-${day}`;
 
 export const Blogs = ({
   authorId,
@@ -16,22 +26,23 @@ export const Blogs = ({
   const { loading, blogs, total } = useBlogs(page, 10);
 
   if (loading) {
-    
-    return <div>
-      <Appbar/>
-      <h1 className="mt-20">Loading...</h1>
-    </div>;
+    return (
+      <div>
+        <Appbar />
+        <h1 className="mt-20">Loading...</h1>
+      </div>
+    );
   }
 
   const filteredBlogs = authorId
     ? blogs.filter((blog) => blog.authorId === authorId)
     : blogs;
 
+  const totalPages = Math.ceil(total / 10);
 
-    const totalPages = Math.ceil(total / 10);
-
-    
+  
   return (
+    
     <div>
       <Appbar explore={true} />
       <h1 className="text-3xl p-6 mt-20 italic ml-[20vw]">
@@ -44,8 +55,9 @@ export const Blogs = ({
           authorName={blog.author.name || "Anonymous"}
           title={blog.title}
           content={blog.content}
-          publishedDate={"2nd Feb 2024"}
+          publishedDate={formattedDate}
           authorId={blog.authorId}
+          myblogs = {myblogs}
         />
       ))}
       <div className="flex justify-center m-6">
@@ -54,7 +66,7 @@ export const Blogs = ({
           disabled={page === 1}
           className="  font-bold py-2 px-4 rounded mr-2"
         >
-          <IoIosArrowBack className="text-2xl"/>
+          <IoIosArrowBack className="text-2xl" />
         </button>
         {Array.from({ length: totalPages }, (_, index) => (
           <button
@@ -75,10 +87,9 @@ export const Blogs = ({
           disabled={page === totalPages}
           className="font-bold py-2 px-4 rounded"
         >
-          <IoIosArrowForward className="text-2xl"/>
+          <IoIosArrowForward className="text-2xl" />
         </button>
       </div>
-
     </div>
   );
 };
