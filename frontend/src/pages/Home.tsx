@@ -7,24 +7,16 @@ import { userState } from "../store/UserState";
 
 export const Home = () => {
   const navigate = useNavigate();
-  const user  = useRecoilValue(userState)
-
+  const user = useRecoilValue(userState);
   const onclickAdd = () => {
-    
-  
-      if(!user) {
-        alert("You need to sign in first")
-        navigate("/signup")
-      }
-     else {
-      navigate("/publish")
-     }
- 
-
+    if (!user) {
+      alert("You need to sign in first");
+      navigate("/signup");
+    } else {
+      navigate("/publish");
+    }
   };
 
-
-  
   return (
     <div className="w-full h-screen bg-zinc-100 overflow-hidden">
       <Appbar explore={true} />

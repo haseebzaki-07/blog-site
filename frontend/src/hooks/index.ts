@@ -45,25 +45,7 @@ export const useBlog = ({ id }: { id: string }) => {
     blog,
   };
 };
-// export const useComments = (id : string) => {
-//   const [loading, setLoading] = useState(true);
-//   const [comments , setComments] = useState<Comment[]>([]);
-//   useEffect(()=>{
-//     const fetchComments =async ()=>{
-//         await axios.get(`${BACKEND_URL}/api/v1/${id}/comment`).then(response => {
-//           console.log("Fetched Comments:", response.data.comments); // Debugging log
-//           setComments(response.data.comments),
-//           setLoading(false)
-//         })
-//     }
-//     fetchComments()
-//     setLoading(false)
-//   } , [id])
-//   return {
-//     loading,
-//     comments,
-//   }
-// }
+
 
 
 export const useBlogs = (page = 1, limit = 10) => {

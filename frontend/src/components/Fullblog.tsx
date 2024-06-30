@@ -8,10 +8,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { formattedDate } from "../pages/Blogs";
 import { Comment } from "./Comment";
+import { useRecoilValue } from "recoil";
+import { userState } from "../store/UserState";
 
 export const FullBlog = ({ blog }: { blog: Blog }) => {
   const navigate = useNavigate();
   const sanitizedContent = DOMpurify.sanitize(blog.content);
+  const user = useRecoilValue(userState)
 
   const [likeCount, setLikeCount] = useState(blog.likeCount);
   const [loading, setLoading] = useState(true);
@@ -158,18 +161,20 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
           </div>
 
           <div className="mt-4 flex gap-4 ">
-            <button
+            {
+              user?.id == blog.authorId ? <button
               onClick={onClickHandler}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Update
-            </button>
-            <button
+            </button> : null
+            }
+            {user?.id == blog.authorId ? <button
               onClick={onDeleteHandler}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Delete Blog
-            </button>
+            </button> : null}
             <button
               onClick={onLikeHandler}
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

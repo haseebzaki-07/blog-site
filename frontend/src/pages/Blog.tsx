@@ -1,6 +1,7 @@
 
 import { Appbar } from "../components/Appbar";
 import { FullBlog } from "../components/Fullblog";
+import { Spinner } from "../components/Spinner";
 
 import { useBlog } from "../hooks";
 import {useParams} from "react-router-dom";
@@ -15,9 +16,7 @@ export const Blog = () => {
     if (loading || !blog) {
         return <div>
             <Appbar />
-            <h1 className="mt-20">
-            Loading...
-            </h1>
+           <Spinner />
         </div>
     }
     return <div className="bg-zinc-200">

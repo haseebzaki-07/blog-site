@@ -53,6 +53,7 @@ export const Appbar = ({ signup }: Appbarprops) => {
           </div>
         )}
         <div className="flex items-center">
+       
           <Avatar size="big" name="I" />
         </div>
         

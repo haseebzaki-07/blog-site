@@ -5,7 +5,13 @@ import { useBlogs } from "../hooks";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 
- const dateTimeString = "2024-06-27T16:38:43.572Z";
+import { FaPlus } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../store/UserState";
+import BlogCardLoader from "../components/BlogCardLoader";
+
+const dateTimeString = "2024-06-27T16:38:43.572Z";
 
 const date = new Date(dateTimeString);
 
@@ -24,12 +30,24 @@ export const Blogs = ({
 }) => {
   const [page, setPage] = useState(1);
   const { loading, blogs, total } = useBlogs(page, 10);
+  const navigate = useNavigate();
+  const user = useRecoilValue(userState);
+  const onclickAdd = () => {
+    if (!user) {
+      alert("You need to sign in first");
+      navigate("/signup");
+    } else {
+      navigate("/publish");
+    }
+  };
 
   if (loading) {
     return (
       <div>
         <Appbar />
-        <h1 className="mt-20">Loading...</h1>
+        <BlogCardLoader/>
+        <BlogCardLoader/>
+        <BlogCardLoader/>
       </div>
     );
   }
@@ -40,9 +58,7 @@ export const Blogs = ({
 
   const totalPages = Math.ceil(total / 10);
 
-  
   return (
-    
     <div>
       <Appbar explore={true} />
       <h1 className="text-3xl p-6 mt-20 italic ml-[20vw]">
@@ -57,7 +73,7 @@ export const Blogs = ({
           content={blog.content}
           publishedDate={formattedDate}
           authorId={blog.authorId}
-          myblogs = {myblogs}
+          myblogs={myblogs}
         />
       ))}
       <div className="flex justify-center m-6">
@@ -90,6 +106,18 @@ export const Blogs = ({
           <IoIosArrowForward className="text-2xl" />
         </button>
       </div>
+      {myblogs ? null : <div className=" sticky   bottom-5  ">
+        <button
+          onClick={onclickAdd}
+          type="button"
+          className=" bg-red-300 flex gap-2 items-center text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+        >
+          <h2>Add New Blog</h2>
+          <span>
+            <FaPlus />
+          </span>
+        </button>
+      </div>}
     </div>
   );
 };

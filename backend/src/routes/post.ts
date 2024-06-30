@@ -137,7 +137,7 @@ postRouter.get("/:id/comment", async (c) => {
   }
 });
 
-postRouter.use("/*", async (c, next) => {
+ postRouter.use("/*", async (c, next) => {
   const header = c.req.header("authorization") || "";
 
   const user = await verify(header, c.env.JWT_SECRET);
@@ -319,3 +319,63 @@ postRouter.post("/:id/comment", async (c) => {
     });
   }
 });
+
+
+postRouter.get("/user-like" , async (c)=>{
+
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  
+  
+    try {
+      const userId = c.get('userId');
+      if (!userId) {
+        c.status(400);
+        return c.json({ message: 'User ID is required' });
+      }
+      
+      console.log("User ID:", userId);
+  
+      const likes = await prisma.like.findMany({
+        where: {
+          userId: userId,
+        },
+        include: {
+          post: {
+            select: {
+              id: true,
+              title: true,
+            },
+          },
+        },
+      });
+      console.log('Likes:', likes);
+  
+     
+  
+      const likedPosts = likes.map(like => ({
+        postId: like.post ? like.post.id : null,
+        title: like.post ? like.post.title : 'No title available',
+      }));
+  
+     
+  
+      return c.json({
+       
+        likedPostsCount: likes.length,
+        likedPosts: likedPosts,
+        
+      });
+    } catch (error) {
+      console.error('Error fetching like details:', error);
+      c.status(500);
+      return c.json({
+        message: 'Error fetching like details',
+        error: error
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+})

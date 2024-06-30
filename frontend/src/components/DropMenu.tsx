@@ -26,8 +26,8 @@ export const DropMenu = () => {
       <div className="py-1">
         <MenuItem>
           {({ focus }) => (
-            <Link
-              to={""}
+            <div
+         
               className={classNames(
                 focus ? "bg-gray-100 text-gray-900" : "text-gray-700",
                 "block px-4 py-2 text-sm"
@@ -36,7 +36,7 @@ export const DropMenu = () => {
               {user && user.email
                 ? `Your Mail id: ${user.email}`
                 : "Not signed in"}
-            </Link>
+            </div>
           )}
         </MenuItem>
         <MenuItem>

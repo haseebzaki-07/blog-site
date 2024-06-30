@@ -10,10 +10,10 @@ done : user verification for other routes
 done : without user verification routes : home , explore
 done : update appbar
 done : image addition 
-implement caching 
+
 done : pagination
-pagiantion on profile issue
-reloading update authentication alert
+
+issue : reloading update authentication alert
 done : likes and comments feature
 done : check update working fine on backend but issue on frontend
 
@@ -21,4 +21,8 @@ done : update delete method for author of the post
 
 
 
-bring up latest version of common module
+done : bring up latest version of common module
+
+apply prisma deccelarate
+users can update their own blogs
+skeletons and loaders

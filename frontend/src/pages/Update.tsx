@@ -5,19 +5,18 @@ import { userState } from "../store/UserState";
 import { useEffect } from "react";
 
 export const Update = () => {
-  const user = useRecoilValue(userState
-  );
+  const user = useRecoilValue(userState);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) {
-      alert("you have to sign in first");
+      alert("You have to sign in first");
       navigate("/signup");
     }
-  });
+  }, [user, navigate]);
 
   if (!user) {
-    return null;
+    return null; 
   }
 
   return (
