@@ -6,11 +6,11 @@ const Signup = () => {
   return (
     <div>
       <Appbar  signup={true}/>
-      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen  ">
+      <div className="grid grid-cols-1 lg:grid-cols-2">
         <div>
             <Auth  type = "signup"/>
         </div>
-        <div className="hidden lg:block">
+        <div className=" lg:block ">
           <Quote />
         </div>
       </div>

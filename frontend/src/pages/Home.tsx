@@ -18,7 +18,7 @@ export const Home = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-zinc-100 overflow-hidden">
+    <div className="w-full h-screen bg-slate-100 overflow-hidden">
       <Appbar explore={true} />
       <div className="grid grid-cols-1 md:grid-cols-2 items-center h-[80vh] w-full p-6 gap-6 mt-20">
         <div className="flex justify-center items-center p-4 ">

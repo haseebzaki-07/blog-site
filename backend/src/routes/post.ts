@@ -321,61 +321,61 @@ postRouter.post("/:id/comment", async (c) => {
 });
 
 
-postRouter.get("/user-like" , async (c)=>{
+// postRouter.get("/user-like" , async (c)=>{
 
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+//   const prisma = new PrismaClient({
+//     datasourceUrl: c.env.DATABASE_URL,
+//   }).$extends(withAccelerate());
 
   
   
-    try {
-      const userId = c.get('userId');
-      if (!userId) {
-        c.status(400);
-        return c.json({ message: 'User ID is required' });
-      }
+//     try {
+//       const userId = c.get('userId');
+//       if (!userId) {
+//         c.status(400);
+//         return c.json({ message: 'User ID is required' });
+//       }
       
-      console.log("User ID:", userId);
+//       console.log("User ID:", userId);
   
-      const likes = await prisma.like.findMany({
-        where: {
-          userId: userId,
-        },
-        include: {
-          post: {
-            select: {
-              id: true,
-              title: true,
-            },
-          },
-        },
-      });
-      console.log('Likes:', likes);
-  
-     
-  
-      const likedPosts = likes.map(like => ({
-        postId: like.post ? like.post.id : null,
-        title: like.post ? like.post.title : 'No title available',
-      }));
+//       const likes = await prisma.like.findMany({
+//         where: {
+//           userId: userId,
+//         },
+//         include: {
+//           post: {
+//             select: {
+//               id: true,
+//               title: true,
+//             },
+//           },
+//         },
+//       });
+//       console.log('Likes:', likes);
   
      
   
-      return c.json({
+//       const likedPosts = likes.map(like => ({
+//         postId: like.post ? like.post.id : null,
+//         title: like.post ? like.post.title : 'No title available',
+//       }));
+  
+     
+  
+//       return c.json({
        
-        likedPostsCount: likes.length,
-        likedPosts: likedPosts,
+//         likedPostsCount: likes.length,
+//         likedPosts: likedPosts,
         
-      });
-    } catch (error) {
-      console.error('Error fetching like details:', error);
-      c.status(500);
-      return c.json({
-        message: 'Error fetching like details',
-        error: error
-      });
-    } finally {
-      await prisma.$disconnect();
-    }
-})
+//       });
+//     } catch (error) {
+//       console.error('Error fetching like details:', error);
+//       c.status(500);
+//       return c.json({
+//         message: 'Error fetching like details',
+//         error: error
+//       });
+//     } finally {
+//       await prisma.$disconnect();
+//     }
+// })

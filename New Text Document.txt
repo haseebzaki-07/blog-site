@@ -24,5 +24,5 @@ done : update delete method for author of the post
 done : bring up latest version of common module
 
 apply prisma deccelarate
-users can update their own blogs
-skeletons and loaders
+done : users can update their own blogs
+done : skeletons and loaders
