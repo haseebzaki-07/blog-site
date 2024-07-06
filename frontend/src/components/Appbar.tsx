@@ -16,7 +16,7 @@ export const Appbar = ({ signup }: Appbarprops) => {
   const scrollDirection = useScrollDirection();
   return (
     <div
-      className={`w-full fixed top-0 left-0 right-0 transition-transform duration-300 shadow-md h-20 flex justify-between  items-center px-14 py-4 bg-slate-300 *: ${
+      className={`w-full fixed top-0 left-0 right-0 transition-transform duration-300 shadow-md h-20 flex justify-between  items-center px-10 lg:px-14 py-4 bg-slate-300 *: ${
         scrollDirection === "down" ? "-translate-y-full" : "translate-y-0"
       }`}
     >

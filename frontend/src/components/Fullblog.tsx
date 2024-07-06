@@ -6,7 +6,7 @@ import DOMpurify from "dompurify";
 import { BACKEND_URL } from "../../config";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { formattedDate } from "../pages/Blogs";
+
 import { Comment } from "./Comment";
 import { useRecoilValue } from "recoil";
 import { userState } from "../store/UserState";
@@ -129,21 +129,21 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
   return (
     <div>
       <Appbar />
-
-      <div className="flex justify-center mt-20 w-screen h-screen ">
-        <div className="w-full flex justify-center  pt-12">
-          <div className="max-w-4xl w-full bg-white p-10 rounded-lg shadow-md">
-            <div className="text-5xl font-extrabold overflow-hidden break-words pb-10">
+  
+      <div className="flex flex-col lg:flex-row justify-center mt-20 w-screen pb-10">
+        <div className="w-full flex justify-center pt-12 lg:w-3/4">
+          <div className="max-w-4xl w-full bg-white p-10 mr-5 ml-5 rounded-lg shadow-md">
+            <div className="lg:text-5xl text-4xl font-extrabold overflow-hidden break-words pb-10">
               {blog.title}
             </div>
-            <div className="text-slate-500 pt-2">Posted on {formattedDate}</div>
+            <div className="text-slate-500 pt-2">Posted on </div>
             <div
               className="pt-4 overflow-hidden break-words"
               dangerouslySetInnerHTML={{ __html: sanitizedContent }} // blog.content
             ></div>
           </div>
         </div>
-        <div className="col-span-4 mt-20">
+        <div className="w-full p-10 lg:p-0  lg:w-1/4 lg:mt-20  lg:mr-10 ">
           <div className="text-slate-600 text-lg">Author</div>
           <div className="flex w-full">
             <div className="pr-4 flex flex-col justify-center">
@@ -159,22 +159,24 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
               </div>
             </div>
           </div>
-
-          <div className="mt-4 flex gap-4 ">
-            {
-              user?.id == blog.authorId ? <button
-              onClick={onClickHandler}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Update
-            </button> : null
-            }
-            {user?.id == blog.authorId ? <button
-              onClick={onDeleteHandler}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Delete Blog
-            </button> : null}
+  
+          <div className="mt-4 flex gap-4">
+            {user?.id == blog.authorId ? (
+              <button
+                onClick={onClickHandler}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Update
+              </button>
+            ) : null}
+            {user?.id == blog.authorId ? (
+              <button
+                onClick={onDeleteHandler}
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Delete Blog
+              </button>
+            ) : null}
             <button
               onClick={onLikeHandler}
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -184,12 +186,12 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
           </div>
           <div className="mt-10">
             <h3 className="mb-2">Enter your comment</h3>
-            <div className="h-[5vh] w-[25vw] ">
+            <div className="h-[5vh] w-full lg:w-[25vw]">
               <input
                 onChange={onCommentHandler}
                 type="text"
                 value={oncomment}
-                className="w-full h-full px-2 "
+                className="w-full h-full px-2"
               />
             </div>
             <button
@@ -198,7 +200,7 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
             >
               Comment
             </button>
-            <div className="w-[25vw]  mt-10">
+            <div className="w-full lg:w-[25vw] mt-10">
               <Comment comments={comments} loading={loading} />
             </div>
           </div>
@@ -206,4 +208,5 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
       </div>
     </div>
   );
+  
 };

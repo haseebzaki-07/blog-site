@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../../config";
 import axios from "axios";
 import { getUser } from "../utils/AuthStore";
+import { Spinner } from "./Spinner";
 
 interface BlogCardProps {
   id: string;
@@ -36,7 +37,7 @@ export const BlogCard = ({
       <div className="p-4 border-b border-slate-200  pb-4 w-full cursor-pointer shrink-0">
         <div className="flex">
           <Avatar name={authorName} />
-          <div className="font-extralight pl-2 text-sm flex justify-center flex-col">
+          <div className="font-extralight pl-2 lg:text-sm text-lg flex justify-center flex-col">
             {authorName}
           </div>
           <div className="flex justify-center flex-col pl-2 ">
@@ -46,12 +47,12 @@ export const BlogCard = ({
             {publishedDate}
           </div>
         </div>
-        <div className="text-xl font-semibold pt-2">{title}</div>
+        <div className=" lg:text-2xl text-3xl font-semibold pt-2">{title}</div>
         <div
-          className="text-md font-thin "
+          className="lg:text-sm text-2xl font-thin "
           dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         ></div>
-        <div className="text-slate-500 text-sm font-thin pt-4">
+        <div className="text-slate-500 lg:text-sm  text-md font-thin pt-4">
           {`${Math.ceil(content.length / 100)} minute(s) read`}
         </div>
       </div>
@@ -95,7 +96,7 @@ export function Avatar({
         role="status"
       >
         <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-          Loading...
+          <Spinner/>
         </span>
       </div>
     );

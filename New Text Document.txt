@@ -26,3 +26,7 @@ done : bring up latest version of common module
 apply prisma deccelarate
 done : users can update their own blogs
 done : skeletons and loaders
+delete extra posts
+done : make responsive
+improve color
+fix real time date

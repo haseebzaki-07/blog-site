@@ -11,15 +11,9 @@ import { useRecoilValue } from "recoil";
 import { userState } from "../store/UserState";
 import BlogCardLoader from "../components/BlogCardLoader";
 
-const dateTimeString = "2024-06-27T16:38:43.572Z";
 
-const date = new Date(dateTimeString);
 
-const year = date.getUTCFullYear();
-const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-const day = String(date.getUTCDate()).padStart(2, "0");
 
-export const formattedDate = `${year}-${month}-${day}`;
 
 export const Blogs = ({
   authorId,
@@ -64,18 +58,25 @@ export const Blogs = ({
       <h1 className="text-3xl p-6 mt-20 italic ml-[20vw]">
         {myblogs ? "My Blogs" : "All Blogs "}
       </h1>
-      {filteredBlogs.map((blog) => (
-        <BlogCard
-          key={blog.id}
-          id={blog.id}
-          authorName={blog.author.name || "Anonymous"}
-          title={blog.title}
-          content={blog.content}
-          publishedDate={formattedDate}
-          authorId={blog.authorId}
-          myblogs={myblogs}
-        />
-      ))}
+      {filteredBlogs.map((blog) => {
+         const date = new Date(blog.publishedDate);
+         const year = date.getUTCFullYear();
+         const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+         const day = String(date.getUTCDate()).padStart(2, "0");
+         const formattedDate = `${year}-${month}-${day}`;
+        return (
+          <BlogCard
+            key={blog.id}
+            id={blog.id}
+            authorName={blog.author.name || "Anonymous"}
+            title={blog.title}
+            content={blog.content}
+            publishedDate={formattedDate}
+            authorId={blog.authorId}
+            myblogs={myblogs}
+          />
+        )
+      })}
       <div className="flex justify-center m-6">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}

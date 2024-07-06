@@ -31,11 +31,11 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   }
   return (
     <div className="h-screen flex justify-center items-center flex-col mt-10 ">
-      <div className="w-full max-w-md px-10 py-8 border border-gray-200 shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)] rounded-lg bg-white">
+      <div className="max-w-screen-md  px-10 py-8 border border-gray-200 shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)] rounded-lg bg-white">
         <div className="flex justify-center ">
           <div>
-            <div className="px-10">
-              <div className="text-3xl font-extrabold">Create an account</div>
+            <div className="px-8">
+              <div className="text-2xl text-center font-extrabold">Create an account</div>
               <div className="text-slate-500">
                 {type === "signin"
                   ? "Don't have an account?"
