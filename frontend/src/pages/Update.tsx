@@ -20,7 +20,7 @@ export const Update = () => {
   }
 
   return (
-    <div>
+    <div className="bg-slate-100 min-h-screen">
       <UpdateEditor />
     </div>
   );

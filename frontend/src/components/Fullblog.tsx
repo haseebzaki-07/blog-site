@@ -136,7 +136,7 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
             <div className="lg:text-5xl text-4xl font-extrabold overflow-hidden break-words pb-10">
               {blog.title}
             </div>
-            <div className="text-slate-500 pt-2">Posted on </div>
+            
             <div
               className="pt-4 overflow-hidden break-words"
               dangerouslySetInnerHTML={{ __html: sanitizedContent }} // blog.content

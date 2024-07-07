@@ -12,9 +12,6 @@ import { userState } from "../store/UserState";
 import BlogCardLoader from "../components/BlogCardLoader";
 
 
-
-
-
 export const Blogs = ({
   authorId,
   myblogs,
@@ -35,13 +32,15 @@ export const Blogs = ({
     }
   };
 
-  if (loading) {
+ if (loading) {
     return (
       <div>
         <Appbar />
+        <div className="mt-20">
         <BlogCardLoader/>
         <BlogCardLoader/>
         <BlogCardLoader/>
+        </div>
       </div>
     );
   }
@@ -59,11 +58,17 @@ export const Blogs = ({
         {myblogs ? "My Blogs" : "All Blogs "}
       </h1>
       {filteredBlogs.map((blog) => {
-         const date = new Date(blog.publishedDate);
-         const year = date.getUTCFullYear();
-         const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-         const day = String(date.getUTCDate()).padStart(2, "0");
-         const formattedDate = `${year}-${month}-${day}`;
+         let formattedDate = "2024-06-07";
+
+         if (blog.publishedDate) {
+         
+           
+           const date = new Date(blog.publishedDate);
+           if (!isNaN(date.getTime())) {
+            
+             formattedDate = blog.publishedDate.split(" ")[0];
+           }
+         }
         return (
           <BlogCard
             key={blog.id}

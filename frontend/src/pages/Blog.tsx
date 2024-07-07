@@ -19,7 +19,7 @@ export const Blog = () => {
            <Spinner />
         </div>
     }
-    return <div className="bg-zinc-200">
+    return <div className="bg-slate-200">
         <FullBlog blog={blog} />
     </div>
 }

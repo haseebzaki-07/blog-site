@@ -2,8 +2,8 @@
 
 const BlogCardLoader = () => {
   return (
-    <div className="flex flex-col items-center ">
-        <div className="p-4 border-b border-slate-200 pb-4 w-[60vw] cursor-pointer shrink-0 animate-pulse mt-20">
+    <div className="flex flex-col items-center m-10  ">
+        <div className="p-4 border-b border-slate-200  w-[60vw] cursor-pointer shrink-0 animate-pulse ">
       <div className="flex items-center">
         <div className="w-12 h-12 rounded-full bg-gray-300"></div> {/* Avatar placeholder */}
         <div className="font-extralight pl-2 text-sm flex justify-center flex-col">

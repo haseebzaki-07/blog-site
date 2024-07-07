@@ -20,7 +20,7 @@ export const Publish  =() => {
   if(!user){
    return null;
   }
-return <div>
+return <div className="bg-slate-100 min-h-screen">
    <Editor/>
 </div>
 }
