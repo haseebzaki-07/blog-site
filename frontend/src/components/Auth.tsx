@@ -1,6 +1,6 @@
 import { SignupInput } from "@hzaki78/medium-common";
 import axios from "axios";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../../config";
 
